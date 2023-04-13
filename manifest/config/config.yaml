@@ -1,0 +1,59 @@
+server:
+  # 服务端Agent信息。默认为"GoFrame HTTP Server"
+  ServerAgent: "socketio-gf"
+  Address:     ":8000"
+  # 路由注册中使用对象注册时的路由生成规则。仅转为小写，单词间不使用连接符号
+  NameToUriType: 2
+
+  # 以下针对请求日志
+  AccessLogEnabled: true
+  LogStdout: true
+
+  # 以下正式环境不开
+
+  # 是否开启PProf性能调试特性。默认为false
+  # @todo 后续添加输出关于运行时参数到普罗米修斯
+  PprofEnabled:        true
+  # 开启PProf时有效，表示PProf特性的页面访问路径，对当前Server绑定的所有域名有效。
+  PprofPattern:        "/pprof"
+
+  # 以下正式环境才开
+
+  # 是否开启平滑重启特性，开启时将会在本地增加10000的本地TCP端口用于进程间通信。默认false
+  Graceful:            true
+  # 父进程在平滑重启后多少秒退出，默认2秒。若请求耗时大于该值，可能会导致请求中断
+  GracefulTimeout:     2
+
+logger:
+  level : "all"
+  stdout: true
+
+redis:
+  default:
+    address: 127.0.0.1:6379
+    db:      0
+
+env:
+  # 对外显示的ip 不填或空则使用 127.0.0.1
+  Host:
+  # 对外显示的协议 不填或空则使用 http
+  Scheme: http
+  # 是否启用调试模式 只有本地true
+  Debug: true
+  # 环境命名空间 local本地 dN开发环境 tN测试环境 pN正式环境
+  EnterpriseId: local
+  # 判断是否是私有环境,默认是是,因为公有增加的可能性不大
+  Private: false
+  # 环境模式 local本地 dev开发环境 test测试环境
+  Profile: local
+
+tracer:
+  Enable: true
+  Address: "127.0.0.1:6831"
+
+websocket:
+  IsBeginRemoveAll: false
+  CheckAliveSecond: 120
+  CheckAliveCron: "0 * * * * *"
+  CleanupSecond: 600
+  CleanupCron: "0 * * * * *"
